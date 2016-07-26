@@ -1,5 +1,5 @@
 #include "uhd/usrp/multi_usrp.hpp"	
-#include "usrp.h"
+#include "usrp_lib.h"
 
 // [ transmit sync sequence ]
 uhd::usrp::multi_usrp::sptr usrp;
@@ -33,12 +33,16 @@ void create_tx_stream()
 
 }
 
-void usrp_send(double *data, int length)
+void usrp_send(double *data,int samples_per_time, int length)
 {
 	uhd::tx_metadata_t md;
 	md.start_of_burst = false;
 	md.end_of_burst = false;
-	tx_stream->send(data, length, md);
-	std::cout << "TX data.........." << std::endl;
+	int tx_total = 0;
+	while(tx_total < length)
+	{
+		tx_stream->send(&data[tx_total], samples_per_time, md);
+		tx_total += samples_per_time;
+	}
 }
 
