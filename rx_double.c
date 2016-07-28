@@ -64,8 +64,9 @@ void long_sync_corr(complex double *receive_data, int receive_data_length, int c
 		double complex an_result = an/corr_power;
 
 		if(cabs(an_result) > 0.75)
-			printf("[long]   index: %d  corr_result: ( %0.2f + %0.2fj ) \n", index, creal(an/corr_power), cimag(an/corr_power));
-		//printf("index: %d  corr_result: ( %0.2f + %0.2fj ) \n", index, creal(corr_result), cimag(corr_result));
+			//printf("[long]   index: %d  corr_result: ( %0.2f + %0.2fj ) \n", index, creal(an/corr_power), cimag(an/corr_power));
+		printf("index: %d  corr_result: ( %0.2f + %0.2fj ) \n", index, creal(an_result), cimag(an_result));
+
 		index++;
 	}
 	gettimeofday(&te, NULL);
